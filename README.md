@@ -2,7 +2,7 @@
 My [Advent of Code](https://adventofcode.com/) solutions.
 
 ## Building
-Requires .NET 5.
+Requires [.NET 5](https://dotnet.microsoft.com/download).
 
 `dotnet restore`
 
