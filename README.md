@@ -1,8 +1,12 @@
 # AdventOfCode
 My Advent of Code solutions
 
-Solutions are organized by year and day.
+## Building
+Requires .NET 5.
+`dotnet restore`
+`dotnet build`
 
+## Running
 Answers can be run via the dotnet CLI as follows:
 
 `dotnet run -- --year 2015 --day 03`
