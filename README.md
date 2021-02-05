@@ -1,13 +1,15 @@
 # Advent Of Code
-My [Advent of Code](https://adventofcode.com/) solutions
+My [Advent of Code](https://adventofcode.com/) solutions.
 
 ## Building
 Requires .NET 5.
+
 `dotnet restore`
+
 `dotnet build`
 
 ## Running
-Answers can be run via the dotnet CLI as follows:
+Answers can be run via the dotnet CLI as follows (from the root of the project):
 
 `dotnet run -- --year 2015 --day 03`
 
