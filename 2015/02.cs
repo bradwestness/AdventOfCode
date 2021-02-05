@@ -3,11 +3,11 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace _02
+namespace advent._2015
 {
-    class Program
+    public class _02 : IAnswer
     {
-        static void Main(string[] args)
+        public void Run()
         {
             long total = 0;
 
