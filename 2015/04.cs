@@ -8,28 +8,29 @@ namespace advent._2015
     {
         public void Run()
         {
-            var i = 0;
-            var hash = GetIntegerMD5Hash(i);
+            const string startsWith = "000000";
+            long i = 0;
+            string hash = GetMD5Hash(i);
 
-            while (!hash.StartsWith("000000"))
+            while (!hash.StartsWith(startsWith))
             {
                 // keep going
-                hash = GetIntegerMD5Hash(++i);
+                hash = GetMD5Hash(++i);
             }
 
-            Console.WriteLine($"First integer with a hash that starts with five zeros: {i}");
+            Console.WriteLine($"First integer with a hash that starts with {startsWith}: {i}");
         }
 
         private static Lazy<MD5> _md5 = new Lazy<MD5>(() => MD5.Create());
 
         private static Lazy<StringBuilder> _sb = new Lazy<StringBuilder>(() => new());
 
-        private static string GetIntegerMD5Hash(int integer)
+        private static string GetMD5Hash(long number)
         {
-            var bytes = _md5.Value.ComputeHash(Encoding.UTF8.GetBytes($"{INPUT}{integer}"));
+            var bytes = _md5.Value.ComputeHash(Encoding.UTF8.GetBytes($"{INPUT}{number}"));
             _sb.Value.Clear();
 
-            for (int i = 0; i < bytes.Length; i++)
+            for (var i = 0; i < bytes.Length; i++)
             {
                 _sb.Value.Append(bytes[i].ToString("x2"));
             }
