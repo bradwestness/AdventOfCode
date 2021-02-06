@@ -54,14 +54,14 @@ namespace advent
             Console.WriteLine();
         }
 
-        private static void RunPart(Func<string> step)
+        private static void RunPart(Func<string> part)
         {
-            var partNumber = step.Method.Name.ToCharArray().Last();
+            var partNumber = part.Method.Name.ToCharArray().Last();
 
             Console.WriteLine($"\n\tRunning part {partNumber}...");
 
             var sw = Stopwatch.StartNew();
-            var result = step();
+            var result = part();
             sw.Stop();
 
             Console.WriteLine($"\t\t{result}");
