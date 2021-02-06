@@ -69,7 +69,7 @@ namespace advent._2015
                 }
             }
 
-            return $"Total brightness of all lights: {GetTotalCount(lights)}.";
+            return $"Total brightness of all lights: {GetAggregateTotal(lights)}.";
         }
 
         private static long GetTrueCount(bool[,] arr)
@@ -92,7 +92,7 @@ namespace advent._2015
             return count;
         }
 
-        private static long GetTotalCount(int[,] arr)
+        private static long GetAggregateTotal(int[,] arr)
         {
             var rows = arr.GetLength(0);
             var cols = arr.GetLength(1);
