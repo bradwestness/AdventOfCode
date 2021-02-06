@@ -1,11 +1,48 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace advent._2015
 {
     public class _03 : IAnswer
     {
-        public void Run()
+        public string Part1()
+        {
+            var presents = new Dictionary<string, int>();
+            var chars = INPUT.ToCharArray();
+            int x = 0;
+            int y = 0;
+
+            GivePresent(ref presents, x, y);
+
+            for (var pos = 0; pos < chars.Length; pos++)
+            {
+                switch (chars[pos])
+                {
+                    case '^':
+                        y += 1;
+                        break;
+
+                    case '>':
+                        x += 1;
+                        break;
+
+                    case 'v':
+                        y -= 1;
+                        break;
+
+                    case '<':
+                        x -= 1;
+                        break;
+                }
+
+                GivePresent(ref presents, x, y);
+            }
+
+            var totalHousesWithPresents = presents.Count;
+
+            return $"Total houses with presents: {totalHousesWithPresents}.";
+        }
+
+        public string Part2()
         {
             var presents = new Dictionary<string, int>();
             var chars = INPUT.ToCharArray();
@@ -80,7 +117,8 @@ namespace advent._2015
             }
 
             var totalHousesWithPresents = presents.Count;
-            Console.WriteLine($"Total houses with presents: {totalHousesWithPresents}");
+
+            return $"Total houses with presents: {totalHousesWithPresents}.";
         }
 
         private static void GivePresent(ref Dictionary<string, int> presents, int x, int y)

@@ -1,49 +1,69 @@
 ﻿using System;
-using System.IO;
 using System.Linq;
-using System.Text;
 
 namespace advent._2015
 {
     public class _02 : IAnswer
     {
-        public void Run()
+        public string Part1()
         {
             long total = 0;
 
-            using (var sr = new StringReader(INPUT))
+            foreach (var line in INPUT.ToLines())
             {
-                while (sr.Peek() > -1)
+                var tokens = line.Split("x");
+
+                if (tokens.Length != 3)
                 {
-                    var line = sr.ReadLine();
-                    var tokens = line.Split("x");
-
-                    if (tokens.Length != 3)
-                    {
-                        Console.WriteLine($"Bad input line: ${line}");
-                        return;
-                    }
-
-                    int.TryParse(tokens[0], out var l);
-                    int.TryParse(tokens[1], out var w);
-                    int.TryParse(tokens[2], out var h);
-
-                    var ordered = new[] { l, w, h }.OrderBy(x => x);
-                    var side1 = ordered.ElementAt(0);
-                    var side2 = ordered.ElementAt(1);
-                    var perimiter = (side1 * 2) + (side2 * 2);
-                    var bow = l * w * h;
-                    var ribbon = perimiter + bow;
-
-                    total += ribbon;
-
-                    Console.WriteLine($"\tLength: {l}, Width: {w}, Height: {h}");
-                    Console.WriteLine($"\tNew total: {total}\n");
+                    throw new Exception($"Bad input line: ${line}!");
                 }
+
+                int.TryParse(tokens[0], out var l);
+                int.TryParse(tokens[1], out var w);
+                int.TryParse(tokens[2], out var h);
+
+                var side1 = l * w;
+                var side2 = w * h;
+                var side3 = h * l;
+                var area = (2 * side1) + (2 * side2) + (2 * side3);                
+                var slack = new[] { side1, side2, side3 }.Min();
+                
+                total += (area + slack);
             }
 
-            Console.WriteLine(total);
+            return $"Total wrapping paper to buy: {total} feet.";
         }
+
+        public string Part2()
+        {
+            long total = 0;
+
+            foreach (var line in INPUT.ToLines())
+            {
+                var tokens = line.Split("x");
+
+                if (tokens.Length != 3)
+                {
+                    throw new Exception($"Bad input line: ${line}!");
+                }
+
+                int.TryParse(tokens[0], out var l);
+                int.TryParse(tokens[1], out var w);
+                int.TryParse(tokens[2], out var h);
+
+                var ordered = new[] { l, w, h }.OrderBy(x => x);
+                var side1 = ordered.ElementAt(0);
+                var side2 = ordered.ElementAt(1);
+                var perimiter = (side1 * 2) + (side2 * 2);
+                var bow = l * w * h;
+                var ribbon = perimiter + bow;
+
+                total += ribbon;
+            }
+
+            return $"Total ribbon to buy: {total} feet.";
+        }
+
         private const string INPUT = @"4x23x21
 22x29x19
 11x4x11

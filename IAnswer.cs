@@ -2,6 +2,7 @@ namespace advent
 {
     public interface IAnswer
     {
-        void Run();
+        string Part1();
+        string Part2();
     }
 }

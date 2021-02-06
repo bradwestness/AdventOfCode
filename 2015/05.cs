@@ -5,35 +5,38 @@ namespace advent._2015
 {
     public class _05 : IAnswer
     {
-        public void Run()
+        public string Part1()
         {
             var nice = 0;
 
-            using (var sr = new System.IO.StringReader(INPUT))
+            foreach (var line in INPUT.ToLines())
             {
-                while (sr.Peek() != -1)
-                {
-                    var line = sr.ReadLine();
+                var chars = line.ToCharArray();
 
-                    if (IsNice(line))
-                    {
-                        nice++;
-                    }
+                if (HasThreeVowels(chars) && HasRepeatedLetter(chars) && HasNoNaughtyStrings(line))
+                {
+                    nice++;
                 }
             }
 
-            System.Console.WriteLine($"Total nice strings: {nice}");
+            return $"Total nice strings: {nice}.";
         }
 
-        private static bool IsNice(string input)
+        public string Part2()
         {
-            var chars = input.ToCharArray();
+            var nice = 0;
 
-            // part 1
-            // return HasThreeVowels(chars) && HasRepeatedLetter(chars) && HasNoNaughtyStrings(input);
+            foreach (var line in INPUT.ToLines())
+            {
+                var chars = line.ToCharArray();
 
-            // part 2
-            return HasRepeatedPair(chars) && HasRepeatedLetterWithBuffer(chars);
+                if (HasRepeatedPair(chars) && HasRepeatedLetterWithBuffer(chars))
+                {
+                    nice++;
+                }
+            }
+
+            return $"Total nice strings: {nice}.";
         }
 
         private static bool HasRepeatedPair(char[] input)
@@ -57,7 +60,7 @@ namespace advent._2015
                 }
 
                 pairs[pair].Add(pos);
-            }           
+            }
 
             return false;
         }
