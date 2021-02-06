@@ -48,13 +48,13 @@ namespace advent
 
             Console.WriteLine($"\n\tRunning answer for year {year}, day {day}...");
             
-            RunStep(instance.Part1);
-            RunStep(instance.Part2);
+            RunPart(instance.Part1);
+            RunPart(instance.Part2);
 
             Console.WriteLine();
         }
 
-        private static void RunStep(Func<string> step)
+        private static void RunPart(Func<string> step)
         {
             var partNumber = step.Method.Name.ToCharArray().Last();
 
