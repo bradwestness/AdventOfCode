@@ -96,17 +96,17 @@ namespace advent._2015
         {
             var rows = arr.GetLength(0);
             var cols = arr.GetLength(1);
-            long count = 0;
+            long total = 0;
 
             for (var row = 0; row < rows; row++)
             {
                 for (var col = 0; col < cols; col++)
                 {
-                    count += arr[row, col];
+                    total += arr[row, col];
                 }
             }
 
-            return count;
+            return total;
         }
 
         private IEnumerable<Instruction> ParseInstructions(string input)
