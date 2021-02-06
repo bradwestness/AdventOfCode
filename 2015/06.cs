@@ -113,8 +113,8 @@ namespace advent._2015
         {
             foreach (var line in input.ToLines())
             {
-                var (startToken, endToken, _) = line.Split(" through ");
-                var action = ParseLightAction(startToken);
+                var (startToken, endToken, _) = line.Split(" through ");                
+                var action = ParseAction(startToken);
                 var start = ParseStart(startToken);
                 var end = ParseEnd(endToken);
 
@@ -122,7 +122,7 @@ namespace advent._2015
             }
         }
 
-        private LightAction ParseLightAction(string line)
+        private LightAction ParseAction(string line)
         {
             if (line.StartsWith("turn off"))
             {
