@@ -11,16 +11,11 @@ namespace advent._2015
 
             foreach (var line in INPUT.ToLines())
             {
-                var tokens = line.Split("x");
+                var (lToken, wToken, hToken, _) = line.Split("x");
 
-                if (tokens.Length != 3)
-                {
-                    throw new Exception($"Bad input line: ${line}!");
-                }
-
-                int.TryParse(tokens[0], out var l);
-                int.TryParse(tokens[1], out var w);
-                int.TryParse(tokens[2], out var h);
+                int.TryParse(lToken, out var l);
+                int.TryParse(wToken, out var w);
+                int.TryParse(hToken, out var h);
 
                 var side1 = l * w;
                 var side2 = w * h;
@@ -40,20 +35,13 @@ namespace advent._2015
 
             foreach (var line in INPUT.ToLines())
             {
-                var tokens = line.Split("x");
+                var (lToken, wToken, hToken, _) = line.Split("x");
 
-                if (tokens.Length != 3)
-                {
-                    throw new Exception($"Bad input line: ${line}!");
-                }
+                int.TryParse(lToken, out var l);
+                int.TryParse(wToken, out var w);
+                int.TryParse(hToken, out var h);
 
-                int.TryParse(tokens[0], out var l);
-                int.TryParse(tokens[1], out var w);
-                int.TryParse(tokens[2], out var h);
-
-                var ordered = new[] { l, w, h }.OrderBy(x => x);
-                var side1 = ordered.ElementAt(0);
-                var side2 = ordered.ElementAt(1);
+                var (side1, side2, _) = new[] { l, w, h }.OrderBy(x => x);
                 var perimiter = (side1 * 2) + (side2 * 2);
                 var bow = l * w * h;
                 var ribbon = perimiter + bow;
