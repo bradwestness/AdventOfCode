@@ -37,7 +37,6 @@ namespace advent._2015
             return $"Total lights lit: {GetTrueCount(lights)}.";
         }
 
-
         public string Part2()
         {
             var lights = new int[1000, 1000];
@@ -110,23 +109,12 @@ namespace advent._2015
             return count;
         }
 
-        private record Instruction(LightAction Action, Point Start, Point End);
-
-        private record Point(int Row, int Col);
-
-        private enum LightAction
-        {
-            Toggle,
-            TurnOff,
-            TurnOn
-        }
-
         private IEnumerable<Instruction> ParseInstructions(string input)
         {
             foreach (var line in input.ToLines())
             {
                 var (startToken, endToken, _) = line.Split(" through ");
-                var action = ParseAction(startToken);
+                var action = ParseLightAction(startToken);
                 var start = ParseStart(startToken);
                 var end = ParseEnd(endToken);
 
@@ -134,7 +122,7 @@ namespace advent._2015
             }
         }
 
-        private LightAction ParseAction(string line)
+        private LightAction ParseLightAction(string line)
         {
             if (line.StartsWith("turn off"))
             {
@@ -173,6 +161,17 @@ namespace advent._2015
             int.TryParse(rowToken, out var row);
             int.TryParse(colToken, out var col);
             return new Point(row, col);
+        }
+
+        private record Instruction(LightAction Action, Point Start, Point End);
+
+        private record Point(int Row, int Col);
+
+        private enum LightAction
+        {
+            Toggle,
+            TurnOff,
+            TurnOn
         }
 
         private const string INPUT = @"turn off 660,55 through 986,197
