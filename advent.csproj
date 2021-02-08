@@ -9,4 +9,14 @@
     <PackageReference Include="System.CommandLine" Version="2.0.0-beta1.20574.7" />
   </ItemGroup>
 
+  <ItemGroup>
+    <EmbeddedResource Include="Inputs/2015/*" />
+    <EmbeddedResource Include="Inputs/2016/*" />
+    <EmbeddedResource Include="Inputs/2017/*" />
+    <EmbeddedResource Include="Inputs/2018/*" />
+    <EmbeddedResource Include="Inputs/2019/*" />
+    <EmbeddedResource Include="Inputs/2020/*" />
+    <EmbeddedResource Include="Inputs/2021/*" />
+  </ItemGroup>
+
 </Project>

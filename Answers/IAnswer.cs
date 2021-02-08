@@ -1,4 +1,4 @@
-namespace advent
+namespace advent.Answers
 {
     public interface IAnswer
     {

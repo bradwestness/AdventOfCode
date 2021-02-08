@@ -3,6 +3,7 @@ using System.CommandLine;
 using System.CommandLine.Invocation;
 using System.Diagnostics;
 using System.Linq;
+using System.IO;
 
 namespace advent
 {
@@ -24,21 +25,19 @@ namespace advent
                 year += 2000;
             }
 
-            var className = $"advent._{year:0000}._{day:00}";
-            var @interface = typeof(IAnswer);
+            var className = $"advent.Answers._{year:0000}._{day:00}";
+            var @interface = typeof(Answers.IAnswer);
             var implementations = @interface.Assembly.GetTypes().Where(t => @interface.IsAssignableFrom(t));
             var implementation = implementations.FirstOrDefault(i => i.FullName.Equals(className));
-            var ctor = implementation?.GetConstructor(new Type[] { });
-            var instance = ctor?.Invoke(new object[] { }) as IAnswer;
+            var inputCtor = implementation?.GetConstructor(new Type[] { typeof(string) });
+            var parameterlessCtor = implementation?.GetConstructor(new Type[] { });
+            var instance = (inputCtor is object)
+                ? inputCtor?.Invoke(new object[] { LoadInput(year, day) }) as Answers.IAnswer
+                : parameterlessCtor?.Invoke(new object[] { }) as Answers.IAnswer;
 
             if (implementation is null)
             {
                 throw new Exception($"No answer found with year {year} and day {day}!");
-            }
-
-            if (ctor is null)
-            {
-                throw new Exception($"Answer for year {year} and day {day} has no parameterless constructor!");
             }
 
             if (instance is null)
@@ -47,7 +46,7 @@ namespace advent
             }
 
             Console.WriteLine($"\n\tRunning answer for year {year}, day {day}...");
-            
+
             RunPart(instance.Part1);
             RunPart(instance.Part2);
 
@@ -56,7 +55,8 @@ namespace advent
 
         private static void RunPart(Func<string> part)
         {
-            var partNumber = part.Method.Name.ToCharArray().Last();
+            var methodName = (ReadOnlySpan<char>)part.Method.Name;
+            var partNumber = methodName[methodName.Length - 1];
 
             Console.WriteLine($"\n\tRunning part {partNumber}...");
 
@@ -66,6 +66,19 @@ namespace advent
 
             Console.WriteLine($"\t\t{result}");
             Console.WriteLine($"\t\tElapsed milliseconds: {sw.ElapsedMilliseconds}.");
+        }
+
+        private static string LoadInput(int year, int day)
+        {
+            var assembly = typeof(Program).Assembly;
+            var names = assembly.GetManifestResourceNames();
+            var resourceName = $"advent.Inputs._{year:0000}.{day:00}.txt";
+
+            using (var resource = (Stream)assembly.GetManifestResourceStream(resourceName))
+            using (var sr = new StreamReader(resource))
+            {
+                return sr.ReadToEnd();
+            }
         }
     }
 }
