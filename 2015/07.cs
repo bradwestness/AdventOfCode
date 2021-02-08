@@ -34,10 +34,10 @@ namespace advent._2015
             var instruction = _instructions[wire];
             var leftSignal = GetOperandSignal(instruction.LeftOperand);
             var rightSignal = GetOperandSignal(instruction.RightOperand);
-            var signal = ProcessInstruction(instruction, leftSignal, rightSignal);
-            _wires.Add(wire, signal);
+            var result = ProcessInstruction(instruction, leftSignal, rightSignal);
+            _wires.Add(wire, result);
 
-            return signal;
+            return result;
         }
 
         private ushort? ProcessInstruction(Instruction instruction, ushort? leftSignal, ushort? rightSignal)
@@ -47,7 +47,7 @@ namespace advent._2015
                 return leftSignal;
             }
 
-            int? signal = instruction.Operator.Value switch
+            int? result = instruction.Operator.Value switch
             {
                 Operator.And => (leftSignal.HasValue && rightSignal.HasValue)
                     ? leftSignal.Value & rightSignal.Value
@@ -67,7 +67,7 @@ namespace advent._2015
                 _ => throw new Exception("Unexpected operator!")
             };
 
-            return (ushort?)signal;
+            return (ushort?)result;
         }
 
         private ushort? GetOperandSignal(string operand)
@@ -121,7 +121,7 @@ namespace advent._2015
 
         private static IDictionary<string, Instruction> ParseInstructions(string input)
         {
-            var instructions = new Dictionary<string, Instruction>();
+            var result = new Dictionary<string, Instruction>();
 
             foreach (var line in input.ToLines())
             {
@@ -152,10 +152,10 @@ namespace advent._2015
                     @operator = operatorEnum;
                 }
 
-                instructions.Add(wire, new Instruction(leftOperand, @operator, rightOperand));
+                result.Add(wire, new Instruction(leftOperand, @operator, rightOperand));
             }
 
-            return instructions;
+            return result;
         }
 
         private const string INPUT = @"lf AND lq -> ls
