@@ -149,7 +149,6 @@ namespace advent._2015
                 _ => leftSignal
             };
 
-
         private const string INPUT = @"lf AND lq -> ls
 iu RSHIFT 1 -> jn
 bo OR bu -> bv
