@@ -32,8 +32,8 @@ namespace advent._2015
             }
 
             var instruction = _instructions[wire];
-            var leftOperandSignal = GetOperandSignal(instruction, i => i.LeftOperand);
-            var rightOperandSignal = GetOperandSignal(instruction, i => i.RightOperand);
+            var leftOperandSignal = GetOperandSignal(instruction.LeftOperand);
+            var rightOperandSignal = GetOperandSignal(instruction.RightOperand);
             var signal = ProcessInstruction(instruction, leftOperandSignal, rightOperandSignal);
             _wires.Add(wire, signal);
 
@@ -70,21 +70,20 @@ namespace advent._2015
             return (ushort?)signalInt;
         }
 
-        private ushort? GetOperandSignal(Instruction instruction, Func<Instruction, string> selector)
+        private ushort? GetOperandSignal(string operand)
         {
-            var operandStr = selector(instruction);
-            if (string.IsNullOrWhiteSpace(operandStr))
+            if (string.IsNullOrWhiteSpace(operand))
             {
                 return null;
             }
 
-            var isOperandInt = ushort.TryParse(operandStr, out var operandInt);
+            var isOperandInt = ushort.TryParse(operand, out var operandInt);
             if (isOperandInt)
             {
                 return operandInt;
             }
 
-            return GetWireSignal(operandStr);
+            return GetWireSignal(operand);
         }
 
         private enum Operator
