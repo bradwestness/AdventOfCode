@@ -32,42 +32,42 @@ namespace advent._2015
             }
 
             var instruction = _instructions[wire];
-            var leftOperandSignal = GetOperandSignal(instruction.LeftOperand);
-            var rightOperandSignal = GetOperandSignal(instruction.RightOperand);
-            var signal = ProcessInstruction(instruction, leftOperandSignal, rightOperandSignal);
+            var leftSignal = GetOperandSignal(instruction.LeftOperand);
+            var rightSignal = GetOperandSignal(instruction.RightOperand);
+            var signal = ProcessInstruction(instruction, leftSignal, rightSignal);
             _wires.Add(wire, signal);
 
             return signal;
         }
 
-        private ushort? ProcessInstruction(Instruction instruction, ushort? leftOperandSignal, ushort? rightOperandSignal)
+        private ushort? ProcessInstruction(Instruction instruction, ushort? leftSignal, ushort? rightSignal)
         {
             if (!instruction.Operator.HasValue)
             {
-                return leftOperandSignal;
+                return leftSignal;
             }
 
-            int? signalInt = instruction.Operator.Value switch
+            int? signal = instruction.Operator.Value switch
             {
-                Operator.And => (leftOperandSignal.HasValue && rightOperandSignal.HasValue)
-                    ? leftOperandSignal.Value & rightOperandSignal.Value
+                Operator.And => (leftSignal.HasValue && rightSignal.HasValue)
+                    ? leftSignal.Value & rightSignal.Value
                     : null,
-                Operator.LShift => (leftOperandSignal.HasValue && rightOperandSignal.HasValue)
-                    ? leftOperandSignal.Value << rightOperandSignal.Value
+                Operator.LShift => (leftSignal.HasValue && rightSignal.HasValue)
+                    ? leftSignal.Value << rightSignal.Value
                     : null,
-                Operator.Not => rightOperandSignal.HasValue
-                    ? ~rightOperandSignal.Value
+                Operator.Not => rightSignal.HasValue
+                    ? ~rightSignal.Value
                     : null,
-                Operator.Or => (leftOperandSignal.HasValue && rightOperandSignal.HasValue)
-                    ? leftOperandSignal.Value | rightOperandSignal.Value
+                Operator.Or => (leftSignal.HasValue && rightSignal.HasValue)
+                    ? leftSignal.Value | rightSignal.Value
                     : null,
-                Operator.RShift => (leftOperandSignal.HasValue && rightOperandSignal.HasValue)
-                    ? leftOperandSignal.Value >> rightOperandSignal.Value
+                Operator.RShift => (leftSignal.HasValue && rightSignal.HasValue)
+                    ? leftSignal.Value >> rightSignal.Value
                     : null,
                 _ => throw new Exception("Unexpected operator!")
             };
 
-            return (ushort?)signalInt;
+            return (ushort?)signal;
         }
 
         private ushort? GetOperandSignal(string operand)
@@ -77,10 +77,10 @@ namespace advent._2015
                 return null;
             }
 
-            var isOperandInt = ushort.TryParse(operand, out var operandInt);
+            var isOperandInt = ushort.TryParse(operand, out var signal);
             if (isOperandInt)
             {
-                return operandInt;
+                return signal;
             }
 
             return GetWireSignal(operand);
