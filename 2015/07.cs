@@ -115,19 +115,17 @@ namespace advent._2015
 
         private record Instruction(
             string LeftOperand,
-            string RightOperand,
             Operator? Operator,
-            string Target,
-            string Line
+            string RightOperand
         );
 
         private static IDictionary<string, Instruction> ParseInstructions(string input)
         {
-            var dict = new Dictionary<string, Instruction>();
+            var instructions = new Dictionary<string, Instruction>();
 
             foreach (var line in input.ToLines())
             {
-                var (inputs, target, _) = line.Split(" -> ");
+                var (inputs, wire, _) = line.Split(" -> ");
                 var tokens = inputs.Split(" ");
                 string leftOperand = null;
                 string operatorStr = null;
@@ -154,10 +152,10 @@ namespace advent._2015
                     @operator = operatorEnum;
                 }
 
-                dict.Add(target, new Instruction(leftOperand, rightOperand, @operator, target, line));
+                instructions.Add(wire, new Instruction(leftOperand, @operator, rightOperand));
             }
 
-            return dict;
+            return instructions;
         }
 
         private const string INPUT = @"lf AND lq -> ls
