@@ -34,40 +34,10 @@ namespace advent._2015
             var instruction = _instructions[wire];
             var leftSignal = GetOperandSignal(instruction.LeftOperand);
             var rightSignal = GetOperandSignal(instruction.RightOperand);
-            var result = ProcessInstruction(instruction, leftSignal, rightSignal);
+            var result = Gate(leftSignal, instruction.Operator, rightSignal);
             _wires.Add(wire, result);
 
             return result;
-        }
-
-        private ushort? ProcessInstruction(Instruction instruction, ushort? leftSignal, ushort? rightSignal)
-        {
-            if (!instruction.Operator.HasValue)
-            {
-                return leftSignal;
-            }
-
-            int? result = instruction.Operator.Value switch
-            {
-                Operator.And => (leftSignal.HasValue && rightSignal.HasValue)
-                    ? leftSignal.Value & rightSignal.Value
-                    : null,
-                Operator.LShift => (leftSignal.HasValue && rightSignal.HasValue)
-                    ? leftSignal.Value << rightSignal.Value
-                    : null,
-                Operator.Not => rightSignal.HasValue
-                    ? ~rightSignal.Value
-                    : null,
-                Operator.Or => (leftSignal.HasValue && rightSignal.HasValue)
-                    ? leftSignal.Value | rightSignal.Value
-                    : null,
-                Operator.RShift => (leftSignal.HasValue && rightSignal.HasValue)
-                    ? leftSignal.Value >> rightSignal.Value
-                    : null,
-                _ => throw new Exception("Unexpected operator!")
-            };
-
-            return (ushort?)result;
         }
 
         private ushort? GetOperandSignal(string operand)
@@ -157,6 +127,28 @@ namespace advent._2015
 
             return result;
         }
+
+        private static ushort? Gate(ushort? leftSignal, Operator? @operator, ushort? rightSignal) =>
+            @operator switch
+            {
+                Operator.And => (leftSignal.HasValue && rightSignal.HasValue)
+                    ? (ushort)(leftSignal.Value & rightSignal.Value)
+                    : null,
+                Operator.LShift => (leftSignal.HasValue && rightSignal.HasValue)
+                    ? (ushort)(leftSignal.Value << rightSignal.Value)
+                    : null,
+                Operator.Not => rightSignal.HasValue
+                    ? (ushort)(~rightSignal.Value)
+                    : null,
+                Operator.Or => (leftSignal.HasValue && rightSignal.HasValue)
+                    ? (ushort)(leftSignal.Value | rightSignal.Value)
+                    : null,
+                Operator.RShift => (leftSignal.HasValue && rightSignal.HasValue)
+                    ? (ushort)(leftSignal.Value >> rightSignal.Value)
+                    : null,
+                _ => leftSignal
+            };
+
 
         private const string INPUT = @"lf AND lq -> ls
 iu RSHIFT 1 -> jn
