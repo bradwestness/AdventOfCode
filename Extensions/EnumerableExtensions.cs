@@ -26,5 +26,82 @@ namespace advent
              out T second,
              out T third,
              out IEnumerable<T> rest) => (first, second, (third, rest)) = enumerable;
+
+        public static void Deconstruct<T>(
+            this IEnumerable<T> enumerable,
+             out T first,
+             out T second,
+             out T third,
+             out T fourth,
+             out IEnumerable<T> rest) => (first, second, third, (fourth, rest)) = enumerable;
+
+        public static void Deconstruct<T>(
+            this IEnumerable<T> enumerable,
+             out T first,
+             out T second,
+             out T third,
+             out T fourth,
+             out T fifth,
+             out IEnumerable<T> rest) => (first, second, third, fourth, (fifth, rest)) = enumerable;
+
+        public static void Deconstruct<T>(
+            this IEnumerable<T> enumerable,
+             out T first,
+             out T second,
+             out T third,
+             out T fourth,
+             out T fifth,
+             out T sixth,
+             out IEnumerable<T> rest) => (first, second, third, fourth, fifth, (sixth, rest)) = enumerable;
+
+        public static void Deconstruct<T>(
+            this IEnumerable<T> enumerable,
+             out T first,
+             out T second,
+             out T third,
+             out T fourth,
+             out T fifth,
+             out T sixth,
+             out T seventh,
+             out IEnumerable<T> rest) => (first, second, third, fourth, fifth, sixth, (seventh, rest)) = enumerable;
+
+        public static void Deconstruct<T>(
+            this IEnumerable<T> enumerable,
+             out T first,
+             out T second,
+             out T third,
+             out T fourth,
+             out T fifth,
+             out T sixth,
+             out T seventh,
+             out T eighth,
+             out IEnumerable<T> rest) => (first, second, third, fourth, fifth, sixth, seventh, (eighth, rest)) = enumerable;
+
+        public static void Deconstruct<T>(
+            this IEnumerable<T> enumerable,
+             out T first,
+             out T second,
+             out T third,
+             out T fourth,
+             out T fifth,
+             out T sixth,
+             out T seventh,
+             out T eighth,
+             out T ninth,
+             out IEnumerable<T> rest) => (first, second, third, fourth, fifth, sixth, seventh, eighth, (ninth, rest)) = enumerable;
+
+        public static void Deconstruct<T>(
+            this IEnumerable<T> enumerable,
+             out T first,
+             out T second,
+             out T third,
+             out T fourth,
+             out T fifth,
+             out T sixth,
+             out T seventh,
+             out T eighth,
+             out T ninth,
+             out T tenth,
+             out IEnumerable<T> rest) => (first, second, third, fourth, fifth, sixth, seventh, eighth, ninth, (tenth, rest)) = enumerable;
     }
 }
