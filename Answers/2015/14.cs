@@ -5,7 +5,7 @@ namespace advent.Answers._2015
 {
     public class _14 : IAnswer
     {
-        private readonly Reindeer[] _reindeer;
+        private readonly IEnumerable<Reindeer> _reindeer;
 
         public _14(string input)
         {
@@ -14,19 +14,19 @@ namespace advent.Answers._2015
 
         public string Part1()
         {
-            Race(2503);
+            RunRace(2503);
             var winner = _reindeer.OrderByDescending(x => x.Distance).First();
             return $"Winning reindeer was {winner.Name}, who traveled {winner.Distance} kilometers.";
         }
 
         public string Part2()
         {
-            Race(2503);
+            RunRace(2503);
             var winner = _reindeer.OrderByDescending(x => x.Points).First();
             return $"Winning reindeer was {winner.Name}, who scored {winner.Points} points.";
         }
 
-        private void Race(int length)
+        private void RunRace(int seconds)
         {
             // reset everyone before starting the race
             foreach (var reindeer in _reindeer)
@@ -34,20 +34,26 @@ namespace advent.Answers._2015
                 reindeer.Reset();
             }
 
+            var lead = 0;
+
             // run the race
-            for (var second = 1; second <= length; second++)
+            for (var second = 0; second < seconds; second++)
             {
                 // move the reindeer
                 foreach (var reindeer in _reindeer)
                 {
                     reindeer.Move();
+
+                    if (reindeer.Distance > lead)
+                    {
+                        lead = reindeer.Distance;
+                    }
                 }
 
                 // award a point to the leader(s)
-                var maxDistance = _reindeer.Max(r => r.Distance);
                 foreach (var reindeer in _reindeer)
                 {
-                    if (reindeer.Distance == maxDistance)
+                    if (reindeer.Distance == lead)
                     {
                         reindeer.AwardPoint();
                     }
@@ -55,19 +61,17 @@ namespace advent.Answers._2015
             }
         }
 
-        private Reindeer[] ParseReindeer(string input)
+        private IList<Reindeer> ParseReindeer(string input)
         {
             var list = new List<Reindeer>();
-            int i = 0;
 
             foreach (var line in input.ToLines())
             {
                 var (name, _, _, speed, _, _, flySeconds, _, _, _, _, _, _, restSeconds, _) = line.Split(' ');
                 list.Add(new Reindeer(name, int.Parse(speed), int.Parse(flySeconds), int.Parse(restSeconds)));
-                i++;
             }
 
-            return list.ToArray();
+            return list;
         }
 
         private class Reindeer
