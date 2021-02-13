@@ -103,5 +103,20 @@ namespace advent
              out T ninth,
              out T tenth,
              out IEnumerable<T> rest) => (first, second, third, fourth, fifth, sixth, seventh, eighth, ninth, (tenth, rest)) = enumerable;
+
+        public static void Deconstruct<T>(
+            this IEnumerable<T> enumerable,
+             out T first,
+             out T second,
+             out T third,
+             out T fourth,
+             out T fifth,
+             out T sixth,
+             out T seventh,
+             out T eighth,
+             out T ninth,
+             out T tenth,
+             out T eleventh,
+             out IEnumerable<T> rest) => (first, second, third, fourth, fifth, sixth, seventh, eighth, ninth, tenth, (eleventh, rest)) = enumerable;
     }
 }
