@@ -4,7 +4,7 @@ using System.Linq;
 namespace advent
 {
     public static class EnumerableExtensions
-    {
+    {        
         public static void Deconstruct<T>(
             this IEnumerable<T> enumerable,
              out T first,
