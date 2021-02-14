@@ -6,9 +6,9 @@ namespace advent.Answers._2015
 {
     public class _05 : IAnswer
     {
-        private readonly string _input;
+        private readonly Input _input;
 
-        public _05(string input)
+        public _05(Input input)
         {
             _input = input;
         }
@@ -17,7 +17,7 @@ namespace advent.Answers._2015
         {
             var nice = 0;
 
-            foreach (var line in _input.ToLines())
+            foreach (var line in _input.ReadLines())
             {
                 if (HasThreeVowels(line) && HasRepeatedLetter(line) && HasNoNaughtyStrings(line))
                 {
@@ -32,7 +32,7 @@ namespace advent.Answers._2015
         {
             var nice = 0;
 
-            foreach (var line in _input.ToLines())
+            foreach (var line in _input.ReadLines())
             {
                 if (HasRepeatedPair(line) && HasRepeatedLetterWithBuffer(line))
                 {

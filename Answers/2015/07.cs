@@ -8,7 +8,7 @@ namespace advent.Answers._2015
         private readonly IDictionary<string, ushort?> _wires;
         private readonly IDictionary<string, Instruction> _instructions;
 
-        public _07(string input)
+        public _07(Input input)
         {
             _wires = new Dictionary<string, ushort?>();
             _instructions = ParseInstructions(input);
@@ -95,11 +95,11 @@ namespace advent.Answers._2015
             string RightOperand
         );
 
-        private static IDictionary<string, Instruction> ParseInstructions(string input)
+        private static IDictionary<string, Instruction> ParseInstructions(Input input)
         {
             var result = new Dictionary<string, Instruction>();
 
-            foreach (var line in input.ToLines())
+            foreach (var line in input.ReadLines())
             {
                 var (inputs, wire, _) = line.Split(" -> ");
                 var tokens = inputs.Split(" ");

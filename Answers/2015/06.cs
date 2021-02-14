@@ -5,9 +5,9 @@ namespace advent.Answers._2015
 {
     public class _06 : IAnswer
     {
-        private readonly string _input;
+        private readonly Input _input;
 
-        public _06(string input)
+        public _06(Input input)
         {
             _input = input;
         }
@@ -116,9 +116,9 @@ namespace advent.Answers._2015
             return total;
         }
 
-        private IEnumerable<Instruction> ParseInstructions(string input)
+        private IEnumerable<Instruction> ParseInstructions(Input input)
         {
-            foreach (var line in input.ToLines())
+            foreach (var line in input.ReadLines())
             {
                 var (startToken, endToken, _) = line.Split(" through ");
                 var action = ParseAction(startToken);

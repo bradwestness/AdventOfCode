@@ -5,9 +5,9 @@ namespace advent.Answers._2015
 {
     public class _09 : IAnswer
     {
-        private readonly string _input;
+        private readonly Input _input;
 
-        public _09(string input)
+        public _09(Input input)
         {
             _input = input;
         }
@@ -32,7 +32,7 @@ namespace advent.Answers._2015
 
         private record Route(IEnumerable<Leg> Legs, int Total);
 
-        private static IEnumerable<Route> GetAllRoutes(string input)
+        private static IEnumerable<Route> GetAllRoutes(Input input)
         {
             var cities = ParseCities(input);
             var cityNames = cities.Keys.Distinct().OrderBy(x => x).ToList();
@@ -62,11 +62,11 @@ namespace advent.Answers._2015
             return routes;
         }
 
-        private static IDictionary<string, IDictionary<string, int>> ParseCities(string input)
+        private static IDictionary<string, IDictionary<string, int>> ParseCities(Input input)
         {
             var cities = new Dictionary<string, IDictionary<string, int>>();
 
-            foreach (var line in input.ToLines())
+            foreach (var line in input.ReadLines())
             {
                 var (start, rest, _) = line.Split(" to ");
                 var (stop, distanceStr, _) = rest.Split(" = ");

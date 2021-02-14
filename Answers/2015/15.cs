@@ -8,7 +8,7 @@ namespace advent.Answers._2015
     {
         private readonly IList<Ingredient> _ingredients;
 
-        public _15(string input)
+        public _15(Input input)
         {
             _ingredients = ParseIngredients(input);
         }
@@ -29,7 +29,7 @@ namespace advent.Answers._2015
 
         private IEnumerable<Cookie> GetAllCookies(int teaspoons)
         {
-            var recipes = Distribute(new int[_ingredients.Count], teaspoons, 0);
+            var recipes = GetPermutations(new int[_ingredients.Count], teaspoons);
             var cookies = new List<Cookie>();
 
             foreach (var recipe in recipes)
@@ -52,35 +52,37 @@ namespace advent.Answers._2015
             return cookies;
         }
 
-        public static IEnumerable<int[]> Distribute(int[] start, int target, int len)
+        public static IEnumerable<int[]> GetPermutations(IEnumerable<int> start, int max, int level = 0)
         {
-            var remaining = target - start.Sum();
-            if (len == start.Length - 1)
+            var remaining = max - start.Sum();
+            var arr = start.ToArray();
+
+            if (level == arr.Length - 1)
             {
-                var x = start.ToArray();
-                x[len] = remaining;
-                yield return x;
+                arr[level] = remaining;
+                yield return arr;
             }
             else
             {
-                for (int n = 0; n < remaining; n++)
+                for (var i = 0; i < remaining; i++)
                 {
-                    var x = start.ToArray();
-                    x[len] = n;
-                    foreach (var d in Distribute(x, target, len + 1))
+                    var copy = start.ToArray();
+                    copy[level] = i;
+
+                    foreach (var distribution in GetPermutations(copy, max, level + 1))
                     {
-                        yield return d;
+                        yield return distribution;
                     }
                 }
             }
         }
 
-        private IList<Ingredient> ParseIngredients(string input)
+        private IList<Ingredient> ParseIngredients(Input input)
         {
             var list = new List<Ingredient>();
             var separators = new[] { ' ', ',', ':' };
 
-            foreach (var line in input.ToLines())
+            foreach (var line in input.ReadLines())
             {
                 var (name, _, capacity, _, durability, _, flavor, _, texture, _, calories, _) = line.Split(separators, StringSplitOptions.RemoveEmptyEntries);
                 list.Add(new Ingredient(

@@ -8,9 +8,9 @@ namespace advent.Answers._2015
     {
         private readonly string _input;
 
-        public _11(string input)
+        public _11(Input input)
         {
-            _input = input;
+            _input = input.ReadToEnd();
         }
 
         public string Part1()

@@ -7,7 +7,7 @@ namespace advent.Answers._2015
     {
         private readonly IEnumerable<Reindeer> _reindeer;
 
-        public _14(string input)
+        public _14(Input input)
         {
             _reindeer = ParseReindeer(input);
         }
@@ -61,11 +61,11 @@ namespace advent.Answers._2015
             }
         }
 
-        private IList<Reindeer> ParseReindeer(string input)
+        private IList<Reindeer> ParseReindeer(Input input)
         {
             var list = new List<Reindeer>();
 
-            foreach (var line in input.ToLines())
+            foreach (var line in input.ReadLines())
             {
                 var (name, _, _, speed, _, _, flySeconds, _, _, _, _, _, _, restSeconds, _) = line.Split(' ');
                 list.Add(new Reindeer(name, int.Parse(speed), int.Parse(flySeconds), int.Parse(restSeconds)));

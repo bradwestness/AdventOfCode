@@ -4,9 +4,9 @@
     {
         private readonly string _input;
 
-        public _04(string input)
+        public _04(Input input)
         {
-            _input = input;
+            _input = input.ReadToEnd();
         }
 
         public string Part1()

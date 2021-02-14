@@ -4,9 +4,9 @@ namespace advent.Answers._2015
 {
     public class _02 : IAnswer
     {
-        private readonly string _input;
+        private readonly Input _input;
 
-        public _02(string input)
+        public _02(Input input)
         {
             _input = input;
         }
@@ -15,7 +15,7 @@ namespace advent.Answers._2015
         {
             long total = 0;
 
-            foreach (var line in _input.ToLines())
+            foreach (var line in _input.ReadLines())
             {
                 var (lToken, wToken, hToken, _) = line.Split("x");
 
@@ -39,7 +39,7 @@ namespace advent.Answers._2015
         {
             long total = 0;
 
-            foreach (var line in _input.ToLines())
+            foreach (var line in _input.ReadLines())
             {
                 var (lToken, wToken, hToken, _) = line.Split("x");
 

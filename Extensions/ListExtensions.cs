@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 
 namespace advent
 {
@@ -7,21 +6,33 @@ namespace advent
     {
         public static IList<IList<T>> GetPermutations<T>(this IList<T> list)
         {
-            if (list.Count == 1)
+            IList<IList<T>> result = new List<IList<T>>();
+
+            Permute(list, list.Count, result);
+
+            return result;
+        }
+
+        private static void Permute<T>(IList<T> list, int count, IList<IList<T>> result)
+        {
+            if (count == 1)
             {
-                return new List<IList<T>>(new[] { list });
+                result.Add(new List<T>(list));
+                return;
             }
 
-            var permutations = new List<IList<T>>();
-
-            foreach (var item in list)
+            for (var i = 0; i < count; i++)
             {
-                var others = list.Except(new[] { item }).ToList();
-                var perms = GetPermutations(others).Select(p => p.Prepend(item).ToList());
-                permutations.AddRange(perms);
+                Permute(list, count - 1, result);
+                Swap(list, count % 2 == 1 ? 0 : i, count - 1);
             }
+        }
 
-            return permutations;
+        private static void Swap<T>(IList<T> list, int i, int j)
+        {
+            var temp = list[i];
+            list[i] = list[j];
+            list[j] = temp;
         }
     }
 }

@@ -7,7 +7,7 @@ namespace advent.Answers._2015
     {
         private readonly IDictionary<string, Guest> _guests;
 
-        public _13(string input)
+        public _13(Input input)
         {
             _guests = ParseGuests(input);
         }
@@ -55,11 +55,11 @@ namespace advent.Answers._2015
             {
                 var name = permutation[i];
                 var guest = _guests[name];
-                var left = i > 0 
-                    ? permutation[i - 1] 
+                var left = i > 0
+                    ? permutation[i - 1]
                     : permutation.Last();
-                var right = i < permutation.Count - 1 
-                    ? permutation[i + 1] 
+                var right = i < permutation.Count - 1
+                    ? permutation[i + 1]
                     : permutation.First();
 
                 change += guest.Neighbors.ContainsKey(left) ? guest.Neighbors[left] : 0;
@@ -71,11 +71,11 @@ namespace advent.Answers._2015
 
         private record Guest(IDictionary<string, int> Neighbors);
 
-        private IDictionary<string, Guest> ParseGuests(string input)
+        private IDictionary<string, Guest> ParseGuests(Input input)
         {
             var guests = new Dictionary<string, Guest>();
 
-            foreach (var line in input.ToLines())
+            foreach (var line in input.ReadLines())
             {
                 var (name, _, direction, points, _, _, _, _, _, _, neighbor, rest) = line.Trim(' ', '.').Split(' ');
 

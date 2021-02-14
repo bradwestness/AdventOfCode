@@ -4,6 +4,7 @@ using System.CommandLine.Invocation;
 using System.Diagnostics;
 using System.Linq;
 using System.IO;
+using advent.Answers;
 
 namespace advent
 {
@@ -29,11 +30,11 @@ namespace advent
             var @interface = typeof(Answers.IAnswer);
             var implementations = @interface.Assembly.GetTypes().Where(t => @interface.IsAssignableFrom(t));
             var implementation = implementations.FirstOrDefault(i => i.FullName.Equals(className));
-            var inputCtor = implementation?.GetConstructor(new Type[] { typeof(string) });
+            var streamCtor = implementation?.GetConstructor(new Type[] { typeof(Input) });
             var parameterlessCtor = implementation?.GetConstructor(new Type[] { });
-            var instance = (inputCtor is object)
-                ? inputCtor?.Invoke(new object[] { LoadInput(year, day) }) as Answers.IAnswer
-                : parameterlessCtor?.Invoke(new object[] { }) as Answers.IAnswer;
+            var instance = (streamCtor is object)
+                    ? streamCtor?.Invoke(new object[]{ new Input(year, day) }) as Answers.IAnswer
+                    : parameterlessCtor?.Invoke(new object[] { }) as Answers.IAnswer;
 
             if (implementation is null)
             {
@@ -66,19 +67,6 @@ namespace advent
 
             Console.WriteLine($"\t\t{result}");
             Console.WriteLine($"\t\tElapsed milliseconds: {sw.ElapsedMilliseconds}.");
-        }
-
-        private static string LoadInput(int year, int day)
-        {
-            var assembly = typeof(Program).Assembly;
-            var names = assembly.GetManifestResourceNames();
-            var resourceName = $"advent.Inputs._{year:0000}.{day:00}.txt";
-
-            using (var resource = (Stream)assembly.GetManifestResourceStream(resourceName))
-            using (var sr = new StreamReader(resource))
-            {
-                return sr.ReadToEnd();
-            }
         }
     }
 }

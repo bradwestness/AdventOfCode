@@ -4,9 +4,9 @@ namespace advent.Answers._2015
 {
     public class _08 : IAnswer
     {
-        private readonly string _input;
+        private readonly Input _input;
 
-        public _08(string input)
+        public _08(Input input)
         {
             _input = input;
         }
@@ -16,7 +16,7 @@ namespace advent.Answers._2015
             var totalChars = 0;
             var totalUnencodedChars = 0;
 
-            foreach (var line in _input.ToLines())
+            foreach (var line in _input.ReadLines())
             {
                 var (charCount, unencodedCharCount) = CountUnencodedCharacters(line);
                 totalChars += charCount;
@@ -33,7 +33,7 @@ namespace advent.Answers._2015
             var totalChars = 0;
             var totalEncodedChars = 0;
 
-            foreach (var line in _input.ToLines())
+            foreach (var line in _input.ReadLines())
             {
                 var (charCount, encodedCharCount) = CountEncodedCharacters(line);
                 totalChars += charCount;
