@@ -9,7 +9,6 @@ namespace advent
         {
             List<IList<T>> permutations = new();
             var stack = new int[list.Count];
-
             stack.Initialize();
 
             var i = 0;
@@ -17,15 +16,7 @@ namespace advent
             {
                 if (stack[i] < i)
                 {
-                    if (i.IsEven())
-                    {
-                        Swap(ref list, 0, i);
-                    }
-                    else
-                    {
-                        Swap(ref list, stack[i], i);
-                    }
-
+                    Swap(ref list, i.IsEven() ? 0 : stack[i], i);
                     permutations.Add(list.ToList());
                     stack[i]++;
                     i = 0;
@@ -40,11 +31,11 @@ namespace advent
             return permutations;
         }
 
-        private static void Swap<T>(ref IList<T> list, int a, int b)
+        private static void Swap<T>(ref IList<T> list, int indexA, int indexB)
         {
-            var temp = list[a];
-            list[a] = list[b];
-            list[b] = temp;
+            var temp = list[indexA];
+            list[indexA] = list[indexB];
+            list[indexB] = temp;
         }
 
         public static IList<IList<T>> GetCombinations<T>(this IList<T> list, int minItems = 1, int? maxItems = null)

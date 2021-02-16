@@ -12,47 +12,43 @@ namespace advent.Answers._2015
         public string Part1()
         {
             var liters = 150;
-            var count = GetCombinationCount(liters);
-            return $"Total combinations adding up to {liters}: {count}.";
+            var counts = GetCombinationCounts(liters);
+            var total = counts.Sum(item => item.Value);
+            return $"Total combinations adding up to {liters}: {total}.";
         }
 
         public string Part2()
         {
             var liters = 150;
-            var containers = GetMinContainers(liters);
-            var count = GetCombinationCount(liters, minItems: containers, maxItems: containers);
-            return $"Total combinations adding up to {liters} using exactly {containers} containers: {count}.";
+            var counts = GetCombinationCounts(liters);
+            var min = counts.Keys.Min();
+            var total = counts[min];
+            return $"Total combinations adding up to {liters} using exactly {min} containers: {total}.";
         }
 
-        private int GetMinContainers(int liters)
+        // Gets a dictionary of counts for how many combinations of containers
+        // added up exactly to the specified number of liters.
+        // Example: if the resulting dictionary has a key of 5 with a value of 20,
+        // there were 20 combinations which each used 5 containers to add up to
+        // the specified number of liters.
+        private IDictionary<int, int> GetCombinationCounts(int liters)
         {
-            var min = int.MaxValue;
+            Dictionary<int, int> counts = new();
 
             foreach (var combination in _containers.GetCombinations())
             {
-                if (combination.Sum() == liters &&
-                    combination.Count < min)
-                {
-                    min = combination.Count;
-                }
-            }
-
-            return min;
-        }
-
-        private int GetCombinationCount(int liters, int minItems = 1, int? maxItems = null)
-        {
-            var count = 0;
-
-            foreach (var combination in _containers.GetCombinations(minItems, maxItems))
-            {
                 if (combination.Sum() == liters)
                 {
-                    count++;
+                    if (!counts.ContainsKey(combination.Count))
+                    {
+                        counts.Add(combination.Count, 0);
+                    }
+
+                    counts[combination.Count]++;
                 }
             }
 
-            return count;
+            return counts;
         }
 
         private IList<int> ParseContainers(Input input)
