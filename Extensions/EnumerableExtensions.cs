@@ -168,7 +168,6 @@ namespace advent
              out T twelfth,
              out T thirteenth,
              out T fourteenth,
-             out IEnumerable<T> rest) => (first, second, third, fourth, fifth, sixth, seventh, eighth, ninth, tenth, eleventh, twelfth, thirteenth, (fourteenth, rest)) = enumerable;
-             
+             out IEnumerable<T> rest) => (first, second, third, fourth, fifth, sixth, seventh, eighth, ninth, tenth, eleventh, twelfth, thirteenth, (fourteenth, rest)) = enumerable;             
     }
 }

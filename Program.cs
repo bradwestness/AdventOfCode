@@ -3,7 +3,6 @@ using System.CommandLine;
 using System.CommandLine.Invocation;
 using System.Diagnostics;
 using System.Linq;
-using System.IO;
 using advent.Answers;
 
 namespace advent
@@ -12,7 +11,7 @@ namespace advent
     {
         public static void Main(string[] args)
         {
-            var command = new RootCommand();
+            RootCommand command = new();
             command.Add(new Option<int>(new[] { "--year", "-y" }));
             command.Add(new Option<int>(new[] { "--day", "-d" }));
             command.Handler = CommandHandler.Create<int, int>(RunAnswer);
@@ -33,7 +32,7 @@ namespace advent
             var streamCtor = implementation?.GetConstructor(new Type[] { typeof(Input) });
             var parameterlessCtor = implementation?.GetConstructor(new Type[] { });
             var instance = (streamCtor is object)
-                    ? streamCtor?.Invoke(new object[]{ new Input(year, day) }) as Answers.IAnswer
+                    ? streamCtor?.Invoke(new object[] { new Input(year, day) }) as Answers.IAnswer
                     : parameterlessCtor?.Invoke(new object[] { }) as Answers.IAnswer;
 
             if (implementation is null)

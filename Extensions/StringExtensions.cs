@@ -8,9 +8,9 @@ namespace advent
 {
     public static class StringExtensions
     {
-        public static IEnumerable<string> ToLines(this string input)
+        public static IEnumerable<string> ToLines(this string str)
         {
-            using (var sr = new StringReader(input))
+            using (StringReader sr = new(str))
             {
                 while (sr.Peek() != -1)
                 {
@@ -19,14 +19,14 @@ namespace advent
             }
         }
 
-        public static string GetMD5Hash(this string input, string prefix = null)
+        public static string GetMD5Hash(this string str, string prefix = null)
         {
             if (string.IsNullOrEmpty(prefix))
             {
                 prefix = string.Empty;
             }
 
-            var bytes = _md5.Value.ComputeHash(Encoding.UTF8.GetBytes($"{prefix}{input}"));
+            var bytes = _md5.Value.ComputeHash(Encoding.UTF8.GetBytes($"{prefix}{str}"));
             _sb.Value.Clear();
 
             for (var i = 0; i < bytes.Length; i++)
