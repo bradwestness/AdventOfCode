@@ -14,8 +14,8 @@ namespace advent.Answers
 
         public string ReadToEnd()
         {
-            using (var stream = typeof(Input).Assembly.GetManifestResourceStream(_resourceName))
-            using (var sr = new StreamReader(stream))
+            using (Stream stream = typeof(Input).Assembly.GetManifestResourceStream(_resourceName))
+            using (StreamReader sr = new(stream))
             {
                 return sr.ReadToEnd();
             }
@@ -23,8 +23,8 @@ namespace advent.Answers
 
         public IEnumerable<string> ReadLines()
         {
-            using (var stream = typeof(Input).Assembly.GetManifestResourceStream(_resourceName))
-            using (var sr = new StreamReader(stream))
+            using (Stream stream = typeof(Input).Assembly.GetManifestResourceStream(_resourceName))
+            using (StreamReader sr = new(stream))
             {
                 while (sr.Peek() != -1)
                 {
