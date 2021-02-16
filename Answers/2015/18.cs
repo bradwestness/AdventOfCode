@@ -28,12 +28,11 @@ namespace advent.Answers._2015
 
         public string Part2()
         {
-            var cornersStuck = true;
-            var lights = ParseLights(_input, cornersStuck);
+            var lights = ParseLights(_input, cornersStuck: true);
             var steps = 100;
             for (var i = 0; i < steps; i++)
             {
-                Step(lights, cornersStuck);
+                Step(lights, cornersStuck: true);
             }
             var lit = GetTotalLit(lights);
             return $"Number of lights on after {steps} steps with corners stuck on: {lit}.";
