@@ -22,7 +22,7 @@ namespace advent.Answers._2015
             {
                 Step(lights);
             }
-            var lit = GetTotalLit(lights);
+            var lit = CountLit(lights);
             return $"Number of lights on after {steps} steps: {lit}.";
         }
 
@@ -34,27 +34,15 @@ namespace advent.Answers._2015
             {
                 Step(lights, cornersStuck: true);
             }
-            var lit = GetTotalLit(lights);
+            var lit = CountLit(lights);
             return $"Number of lights on after {steps} steps with corners stuck on: {lit}.";
         }
 
         private void Step(char[,] lights, bool cornersStuck = false)
         {
-            foreach (var change in GetChanges(lights))
-            {
-                if (cornersStuck && IsCorner(change.X, change.Y))
-                {
-                    continue;
-                }
-
-                lights[change.X, change.Y] = change.Value;
-            }
-        }
-
-        private IList<Change> GetChanges(char[,] lights)
-        {
+            // build a list of what changes need to be applied
+            // before changing anything
             List<Change> changes = new();
-
             for (var x = 0; x < WIDTH; x++)
             {
                 for (var y = 0; y < HEIGHT; y++)
@@ -70,7 +58,18 @@ namespace advent.Answers._2015
                 }
             }
 
-            return changes;
+            // apply the changes in the list
+            foreach (var change in changes)
+            {
+                if (cornersStuck && IsCorner(change.X, change.Y))
+                {
+                    // if the corner is stuck,
+                    // it can't change
+                    continue;
+                }
+
+                lights[change.X, change.Y] = change.Value;
+            }
         }
 
         private bool IsCorner(int x, int y) =>
@@ -93,7 +92,7 @@ namespace advent.Answers._2015
                 return false;
             }
 
-            return CountNeighbors(lights, x, y) switch
+            return CountLitNeighbors(lights, x, y) switch
             {
                 2 or 3 => false,
                 _ => true
@@ -107,14 +106,14 @@ namespace advent.Answers._2015
                 return false;
             }
 
-            return CountNeighbors(lights, x, y) switch
+            return CountLitNeighbors(lights, x, y) switch
             {
                 3 => true,
                 _ => false
             };
         }
 
-        private int CountNeighbors(char[,] lights, int x, int y)
+        private int CountLitNeighbors(char[,] lights, int x, int y)
         {
             int count = 0;
 
@@ -139,7 +138,7 @@ namespace advent.Answers._2015
             return count;
         }
 
-        private int GetTotalLit(char[,] lights)
+        private int CountLit(char[,] lights)
         {
             var count = 0;
 
