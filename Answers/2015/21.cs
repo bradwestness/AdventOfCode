@@ -16,17 +16,45 @@ namespace advent.Answers._2015
 
         public string Part2()
         {
-            var (_, maxLosignCost) = PlayAllCombinations();
-            return $"Maximum losing cost: {maxLosignCost}.";
+            var (_, maxLosingCost) = PlayAllCombinations();
+            return $"Maximum losing cost: {maxLosingCost}.";
         }
 
         private (int MinWinningCost, int MaxLosingCost) PlayAllCombinations()
         {
-            var weapons = _shop.Weapons.GetCombinations(1, 1);
-            var armor = _shop.Armor.GetCombinations(0, 1);
-            var rings = _shop.Rings.GetCombinations(0, 2);
-            var minWinningCost = int.MaxValue;
-            var maxLosingCost = 0;
+            int minWinningCost = int.MaxValue;
+            int maxLosingCost = 0;
+
+            foreach (var items in GetItemCombinations())
+            {
+                var cost = items.Sum(i => i.Cost);
+                var player = new Character
+                {
+                    HitPoints = 100,
+                    Armor = items.Sum(i => i.Armor),
+                    Damage = items.Sum(i => i.Damage)
+                };
+
+                switch (PlayGame(player))
+                {
+                    case Outcome.Win when cost < minWinningCost:
+                        minWinningCost = cost;
+                        break;
+
+                    case Outcome.Lose when cost > maxLosingCost:
+                        maxLosingCost = cost;
+                        break;
+                }
+            }
+
+            return (minWinningCost, maxLosingCost);
+        }
+
+        private IEnumerable<IEnumerable<Item>> GetItemCombinations()
+        {
+            var weapons = _shop.Weapons.GetCombinations(min: 1, max: 1);
+            var armor = _shop.Armor.GetCombinations(min: 0, max: 1);
+            var rings = _shop.Rings.GetCombinations(min: 0, max: 2);
 
             foreach (var w in weapons)
             {
@@ -34,37 +62,10 @@ namespace advent.Answers._2015
                 {
                     foreach (var r in rings)
                     {
-                        var items = w.Concat(a).Concat(r);
-                        var player = new Character
-                        {
-                            HitPoints = 100,
-                            Armor = items.Sum(i => i.Armor),
-                            Damage = items.Sum(i => i.Damage)
-                        };
-
-                        switch (PlayGame(player))
-                        {
-                            case Outcome.Win:
-                                var winningCost = items.Sum(i => i.Cost);
-                                if (winningCost < minWinningCost)
-                                {
-                                    minWinningCost = winningCost;
-                                }
-                                break;
-
-                            case Outcome.Lose:
-                                var losingCost = items.Sum(i => i.Cost);
-                                if (losingCost > maxLosingCost)
-                                {
-                                    maxLosingCost = losingCost;
-                                }
-                                break;
-                        }
+                        yield return w.Concat(a).Concat(r);
                     }
                 }
             }
-
-            return (minWinningCost, maxLosingCost);
         }
 
         private Outcome PlayGame(Character player)

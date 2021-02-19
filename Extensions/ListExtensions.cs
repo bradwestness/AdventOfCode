@@ -38,17 +38,17 @@ namespace advent
             list[indexB] = temp;
         }
 
-        public static IList<IList<T>> GetCombinations<T>(this IList<T> list, int minItems = 1, int? maxItems = null)
+        public static IList<IList<T>> GetCombinations<T>(this IList<T> list, int min = 1, int? max = null)
         {
-            if (!maxItems.HasValue)
+            if (!max.HasValue)
             {
-                maxItems = list.Count;
+                max = list.Count;
             }
 
             List<IList<T>> combinations = new();
-            var max = 1 << list.Count;
+            var upperBound = 1 << list.Count;
 
-            for (var i = 1; i <= max; i++)
+            for (var i = 1; i <= upperBound; i++)
             {
                 List<T> combination = new();
 
@@ -60,8 +60,8 @@ namespace advent
                     }
                 }
 
-                if (combination.Count >= minItems &&
-                    combination.Count <= maxItems.Value)
+                if (combination.Count >= min &&
+                    combination.Count <= max.Value)
                 {
                     combinations.Add(combination);
                 }
