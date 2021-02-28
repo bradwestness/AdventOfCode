@@ -38,36 +38,60 @@ namespace advent
             list[indexB] = temp;
         }
 
-        public static IList<IList<T>> GetCombinations<T>(this IList<T> list, int min = 1, int? max = null)
+        public static IEnumerable<IList<T>> GetCombinations<T>(this IList<T> list, int minItems = 1, int? maxItems = null)
         {
-            if (!max.HasValue)
+            if (!maxItems.HasValue)
             {
-                max = list.Count;
+                maxItems = list.Count;
             }
 
-            List<IList<T>> combinations = new();
-            var upperBound = 1 << list.Count;
+            var maxCombinations = 1 << list.Count;
 
-            for (var i = 1; i <= upperBound; i++)
+            for (var i = 1; i <= maxCombinations; i++)
             {
-                List<T> combination = new();
+                var combination = list.GetCombination(i, minItems, maxItems);
 
-                for (var j = 0; j < list.Count; j++)
+                if (combination is object)
                 {
-                    if ((i >> j).IsOdd())
+                    yield return combination;
+                }
+            }
+        }
+
+        public static IList<T> GetCombination<T>(this IList<T> list, int combinationNumber, int minItems = 1, int? maxItems = null)
+        {
+            if (!maxItems.HasValue)
+            {
+                maxItems = list.Count;
+            }
+
+            List<T> combination = new();
+
+            for (var i = 0; i < list.Count; i++)
+            {
+                if ((combinationNumber >> i).IsOdd())
+                {
+                    if (combination.Count == maxItems)
                     {
-                        combination.Add(list[j]);
+                        // this combination would have
+                        // more than the specified maximum
+                        // number of items, so return null
+                        return null;
                     }
-                }
 
-                if (combination.Count >= min &&
-                    combination.Count <= max.Value)
-                {
-                    combinations.Add(combination);
+                    combination.Add(list[i]);
                 }
             }
 
-            return combinations;
+            if (combination.Count < minItems)
+            {
+                // this combination has fewer than the
+                // specified minimum number of items,
+                // so return null
+                return null;
+            }
+
+            return combination;
         }
     }
 }

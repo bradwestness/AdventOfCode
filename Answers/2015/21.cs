@@ -52,9 +52,9 @@ namespace advent.Answers._2015
 
         private IEnumerable<IEnumerable<Item>> GetItemCombinations()
         {
-            var weapons = _shop.Weapons.GetCombinations(min: 1, max: 1);
-            var armor = _shop.Armor.GetCombinations(min: 0, max: 1);
-            var rings = _shop.Rings.GetCombinations(min: 0, max: 2);
+            var weapons = _shop.Weapons.GetCombinations(minItems: 1, maxItems: 1);
+            var armor = _shop.Armor.GetCombinations(minItems: 0, maxItems: 1);
+            var rings = _shop.Rings.GetCombinations(minItems: 0, maxItems: 2);
 
             foreach (var w in weapons)
             {
