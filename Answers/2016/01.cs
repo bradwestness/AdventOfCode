@@ -13,23 +13,22 @@ namespace advent.Answers._2016
         public string Part1()
         {
             Intersection start = new(0, 0);
-            var end = FollowInstructions(_instructions, start);
-            var distance = GetBlocksAway(start, end);
-            return $"Number of blocks from the starting position: {distance}";
+            var end = FollowInstructions(_instructions, start, Direction.N);
+            var blocks = GetBlocksAway(start, end);
+            return $"Number of blocks from the starting position: {blocks}";
         }
 
         public string Part2()
         {
             Intersection start = new(0, 0);
-            var end = FollowInstructions(_instructions, start, stopAtFirstRevisit: true);
-            var distance = GetBlocksAway(start, end);
-            return $"Number of blocks from the starting position: {distance}";
+            var end = FollowInstructions(_instructions, start, Direction.N, stopAtFirstRevisit: true);
+            var blocks = GetBlocksAway(start, end);
+            return $"Number of blocks from the starting position: {blocks}";
         }
 
-        private Intersection FollowInstructions(IEnumerable<string> instructions, Intersection start, bool stopAtFirstRevisit = false)
+        private Intersection FollowInstructions(IEnumerable<string> instructions, Intersection start, Direction facing, bool stopAtFirstRevisit = false)
         {
             var position = start with { };
-            var facing = Direction.N;
             var history = stopAtFirstRevisit
                 ? new List<Intersection> { start }
                 : null;
