@@ -82,13 +82,13 @@ namespace advent.Answers._2016
             _ => facing
         };
 
-        private Intersection WalkOneBlock(Intersection point, Direction facing) => facing switch
+        private Intersection WalkOneBlock(Intersection position, Direction facing) => facing switch
         {
-            Direction.N => point with { X = point.X + 1 },
-            Direction.E => point with { Y = point.Y + 1 },
-            Direction.S => point with { X = point.X - 1 },
-            Direction.W => point with { Y = point.Y - 1 },
-            _ => point
+            Direction.N => position with { X = position.X + 1 },
+            Direction.E => position with { Y = position.Y + 1 },
+            Direction.S => position with { X = position.X - 1 },
+            Direction.W => position with { Y = position.Y - 1 },
+            _ => position
         };
 
         private enum Direction
