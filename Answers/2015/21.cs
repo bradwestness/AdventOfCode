@@ -1,12 +1,13 @@
 using System.Collections.Generic;
 using System.Linq;
+using advent.Input;
 
 namespace advent.Answers._2015
 {
-    public class _21 : IAnswer
+    public class _21 : IPuzzleAnswer
     {
         private readonly Character _enemy;
-        public _21(Input input) => _enemy = ParseEnemy(input);
+        public _21(IPuzzleInput input) => _enemy = ParseEnemy(input);
 
         public string Part1()
         {
@@ -102,7 +103,7 @@ namespace advent.Answers._2015
                 : 1;
         }
 
-        private Character ParseEnemy(Input input)
+        private Character ParseEnemy(IPuzzleInput input)
         {
             Character enemy = new();
             var type = enemy.GetType();

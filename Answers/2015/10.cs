@@ -1,16 +1,15 @@
 using System;
 using System.Text;
+using advent.Input;
 
 namespace advent.Answers._2015
 {
-    public class _10 : IAnswer
+    public class _10 : IPuzzleAnswer
     {
         private readonly string _input;
 
-        public _10(Input input)
-        {
+        public _10(IPuzzleInput input) =>
             _input = input.ReadToEnd()?.Trim() ?? string.Empty;
-        }
 
         public string Part1()
         {

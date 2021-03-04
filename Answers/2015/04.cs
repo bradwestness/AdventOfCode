@@ -1,13 +1,12 @@
-﻿namespace advent.Answers._2015
+﻿using advent.Input;
+
+namespace advent.Answers._2015
 {
-    public class _04 : IAnswer
+    public class _04 : IPuzzleAnswer
     {
         private readonly string _input;
 
-        public _04(Input input)
-        {
-            _input = input.ReadToEnd();
-        }
+        public _04(IPuzzleInput input) => _input = input.ReadToEnd();
 
         public string Part1()
         {

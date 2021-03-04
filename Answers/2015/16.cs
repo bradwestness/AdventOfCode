@@ -1,15 +1,13 @@
 using System.Collections.Generic;
+using advent.Input;
 
 namespace advent.Answers._2015
 {
-    public class _16 : IAnswer
+    public class _16 : IPuzzleAnswer
     {
         private IDictionary<int, IDictionary<string, int>> _aunts;
 
-        public _16(Input input)
-        {
-            _aunts = ParseAunts(input);
-        }
+        public _16(IPuzzleInput input) => _aunts = ParseAunts(input);
 
         public string Part1()
         {
@@ -78,7 +76,7 @@ namespace advent.Answers._2015
             return sue;
         }
 
-        private IDictionary<int, IDictionary<string, int>> ParseAunts(Input input)
+        private IDictionary<int, IDictionary<string, int>> ParseAunts(IPuzzleInput input)
         {
             Dictionary<int, IDictionary<string, int>> dict = new();
 

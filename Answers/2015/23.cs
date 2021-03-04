@@ -1,12 +1,13 @@
 using System;
+using advent.Input;
 
 namespace advent.Answers._2015
 {
-    public class _23 : IAnswer
+    public class _23 : IPuzzleAnswer
     {
         private readonly string[] _lines;
 
-        public _23(Input input) => _lines = input.ReadToEnd().Split('\n');
+        public _23(IPuzzleInput input) => _lines = input.ReadToEnd().Split('\n');
 
         public string Part1()
         {

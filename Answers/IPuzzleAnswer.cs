@@ -1,6 +1,6 @@
 namespace advent.Answers
 {
-    public interface IAnswer
+    public interface IPuzzleAnswer
     {
         string Part1();
         string Part2();

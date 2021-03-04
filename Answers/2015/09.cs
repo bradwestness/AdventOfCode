@@ -1,16 +1,14 @@
 using System.Collections.Generic;
 using System.Linq;
+using advent.Input;
 
 namespace advent.Answers._2015
 {
-    public class _09 : IAnswer
+    public class _09 : IPuzzleAnswer
     {
-        private readonly Input _input;
+        private readonly IPuzzleInput _input;
 
-        public _09(Input input)
-        {
-            _input = input;
-        }
+        public _09(IPuzzleInput input) => _input = input;
 
         public string Part1()
         {
@@ -32,7 +30,7 @@ namespace advent.Answers._2015
 
         private record Route(IEnumerable<Leg> Legs, int Total);
 
-        private static IEnumerable<Route> GetAllRoutes(Input input)
+        private static IEnumerable<Route> GetAllRoutes(IPuzzleInput input)
         {
             var cities = ParseCities(input);
             var cityNames = cities.Keys.Distinct().OrderBy(x => x).ToList();
@@ -62,7 +60,7 @@ namespace advent.Answers._2015
             return routes;
         }
 
-        private static IDictionary<string, IDictionary<string, int>> ParseCities(Input input)
+        private static IDictionary<string, IDictionary<string, int>> ParseCities(IPuzzleInput input)
         {
             var cities = new Dictionary<string, IDictionary<string, int>>();
 

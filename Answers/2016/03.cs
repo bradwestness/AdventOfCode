@@ -1,13 +1,14 @@
 using System;
 using System.Collections.Generic;
+using advent.Input;
 
 namespace advent.Answers._2016
 {
-    public class _03 : IAnswer
+    public class _03 : IPuzzleAnswer
     {
-        private readonly Input _input;
+        private readonly IPuzzleInput _input;
 
-        public _03(Input input) => _input = input;
+        public _03(IPuzzleInput input) => _input = input;
 
         public string Part1()
         {
@@ -43,7 +44,7 @@ namespace advent.Answers._2016
             triangle.B + triangle.C > triangle.A &&
             triangle.C + triangle.A > triangle.B;
 
-        private IEnumerable<Triangle> ParseHorizontal(Input input)
+        private IEnumerable<Triangle> ParseHorizontal(IPuzzleInput input)
         {
             List<Triangle> list = new();
 
@@ -56,7 +57,7 @@ namespace advent.Answers._2016
             return list;
         }
 
-        private IEnumerable<Triangle> ParseVertical(Input input)
+        private IEnumerable<Triangle> ParseVertical(IPuzzleInput input)
         {
             List<Triangle> list = new();
             var values = new int[3, 3];

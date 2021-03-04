@@ -1,13 +1,14 @@
 using System.Collections.Generic;
 using System.Linq;
+using advent.Input;
 
 namespace advent.Answers._2015
 {
-    public class _17 : IAnswer
+    public class _17 : IPuzzleAnswer
     {
         private readonly IList<int> _containers;
 
-        public _17(Input input) => _containers = ParseContainers(input);
+        public _17(IPuzzleInput input) => _containers = ParseContainers(input);
 
         public string Part1()
         {
@@ -51,7 +52,7 @@ namespace advent.Answers._2015
             return counts;
         }
 
-        private IList<int> ParseContainers(Input input)
+        private IList<int> ParseContainers(IPuzzleInput input)
         {
             List<int> containers = new();
 

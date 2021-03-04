@@ -3,17 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.Json;
+using advent.Input;
 
 namespace advent.Answers._2015
 {
-    public class _12 : IAnswer
+    public class _12 : IPuzzleAnswer
     {
         private readonly string _input;
 
-        public _12(Input input)
-        {
-            _input = input.ReadToEnd();
-        }
+        public _12(IPuzzleInput input) => _input = input.ReadToEnd();
 
         public string Part1()
         {

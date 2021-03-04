@@ -1,8 +1,9 @@
 using System.Numerics;
+using advent.Input;
 
 namespace advent.Answers._2015
 {
-    public class _25 : IAnswer
+    public class _25 : IPuzzleAnswer
     {
         private const ulong INITIAL_VALUE = 20151125;
         private const ulong BASE = 252533;
@@ -10,7 +11,7 @@ namespace advent.Answers._2015
 
         private readonly (ulong Row, ulong Column) _input;
 
-        public _25(Input input) => _input = ParseInput(input);
+        public _25(IPuzzleInput input) => _input = ParseInput(input);
 
         public string Part1()
         {
@@ -37,7 +38,7 @@ namespace advent.Answers._2015
         private ulong ModularExponent(ulong exp) =>
             (ulong)BigInteger.ModPow(BASE, exp, MODULUS);
 
-        private (ulong Row, ulong Column) ParseInput(Input input)
+        private (ulong Row, ulong Column) ParseInput(IPuzzleInput input)
         {
             var str = input.ReadToEnd();
             ulong getTokenInt(string input, string token)

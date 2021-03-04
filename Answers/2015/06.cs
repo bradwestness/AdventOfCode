@@ -1,16 +1,14 @@
 using System;
 using System.Collections.Generic;
+using advent.Input;
 
 namespace advent.Answers._2015
 {
-    public class _06 : IAnswer
+    public class _06 : IPuzzleAnswer
     {
-        private readonly Input _input;
+        private readonly IPuzzleInput _input;
 
-        public _06(Input input)
-        {
-            _input = input;
-        }
+        public _06(IPuzzleInput input) => _input = input;
 
         public string Part1()
         {
@@ -116,7 +114,7 @@ namespace advent.Answers._2015
             return total;
         }
 
-        private IEnumerable<Instruction> ParseInstructions(Input input)
+        private IEnumerable<Instruction> ParseInstructions(IPuzzleInput input)
         {
             foreach (var line in input.ReadLines())
             {

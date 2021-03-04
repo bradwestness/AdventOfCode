@@ -1,13 +1,14 @@
 using System;
 using System.Collections.Generic;
+using advent.Input;
 
 namespace advent.Answers._2015
 {
-    public class _22 : IAnswer
+    public class _22 : IPuzzleAnswer
     {
         private readonly Boss _boss;
 
-        public _22(Input input) => _boss = new(input);
+        public _22(IPuzzleInput input) => _boss = new(input);
 
         public string Part1()
         {
@@ -166,7 +167,7 @@ namespace advent.Answers._2015
 
             }
 
-            public Boss(Input input)
+            public Boss(IPuzzleInput input)
             {
                 foreach (var line in input.ReadLines())
                 {

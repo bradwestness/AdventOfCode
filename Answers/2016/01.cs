@@ -1,13 +1,14 @@
 using System;
 using System.Collections.Generic;
+using advent.Input;
 
 namespace advent.Answers._2016
 {
-    public class _01 : IAnswer
+    public class _01 : IPuzzleAnswer
     {
         private readonly string[] _instructions;
 
-        public _01(Input input) =>
+        public _01(IPuzzleInput input) =>
             _instructions = input.ReadToEnd().Split(new[] { ' ', ',' }, StringSplitOptions.RemoveEmptyEntries);
 
         public string Part1()

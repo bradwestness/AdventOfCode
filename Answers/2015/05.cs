@@ -1,17 +1,15 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using advent.Input;
 
 namespace advent.Answers._2015
 {
-    public class _05 : IAnswer
+    public class _05 : IPuzzleAnswer
     {
-        private readonly Input _input;
+        private readonly IPuzzleInput _input;
 
-        public _05(Input input)
-        {
-            _input = input;
-        }
+        public _05(IPuzzleInput input) => _input = input;
 
         public string Part1()
         {

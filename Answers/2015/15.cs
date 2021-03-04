@@ -1,17 +1,15 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using advent.Input;
 
 namespace advent.Answers._2015
 {
-    public class _15 : IAnswer
+    public class _15 : IPuzzleAnswer
     {
         private readonly IList<Ingredient> _ingredients;
 
-        public _15(Input input)
-        {
-            _ingredients = ParseIngredients(input);
-        }
+        public _15(IPuzzleInput input) => _ingredients = ParseIngredients(input);
 
         public string Part1()
         {
@@ -77,7 +75,7 @@ namespace advent.Answers._2015
             }
         }
 
-        private IList<Ingredient> ParseIngredients(Input input)
+        private IList<Ingredient> ParseIngredients(IPuzzleInput input)
         {
             var list = new List<Ingredient>();
             var separators = new[] { ' ', ',', ':' };

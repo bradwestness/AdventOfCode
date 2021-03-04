@@ -1,13 +1,14 @@
 using System.Collections.Generic;
 using System.Linq;
+using advent.Input;
 
 namespace advent.Answers._2015
 {
-    public class _24 : IAnswer
+    public class _24 : IPuzzleAnswer
     {
         private readonly ulong[] _packages;
 
-        public _24(Input input)
+        public _24(IPuzzleInput input)
         {
             var packages = new List<ulong>();
 

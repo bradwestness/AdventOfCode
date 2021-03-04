@@ -1,10 +1,12 @@
+using advent.Input;
+
 namespace advent.Answers._2015
 {
-    public class _20 : IAnswer
+    public class _20 : IPuzzleAnswer
     {
         private readonly uint _input;
 
-        public _20(Input input) => _input = uint.Parse(input.ReadToEnd());
+        public _20(IPuzzleInput input) => _input = uint.Parse(input.ReadToEnd());
 
         public string Part1()
         {

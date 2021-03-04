@@ -1,18 +1,19 @@
 using System;
 using System.Collections.Generic;
+using advent.Input;
 
 namespace advent.Answers._2015
 {
-    public class _18 : IAnswer
+    public class _18 : IPuzzleAnswer
     {
         private const int WIDTH = 100;
         private const int HEIGHT = 100;
         private const char LIGHT_ON = '#';
         private const char LIGHT_OFF = '.';
 
-        private readonly Input _input;
+        private readonly IPuzzleInput _input;
 
-        public _18(Input input) => _input = input;
+        public _18(IPuzzleInput input) => _input = input;
 
         public string Part1()
         {
@@ -158,7 +159,7 @@ namespace advent.Answers._2015
 
         private record Change(int X, int Y, char Value);
 
-        private char[,] ParseLights(Input input, bool cornersStuck = false)
+        private char[,] ParseLights(IPuzzleInput input, bool cornersStuck = false)
         {
             var lights = new char[WIDTH, HEIGHT];
 

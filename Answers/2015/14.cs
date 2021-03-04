@@ -1,16 +1,14 @@
 using System.Collections.Generic;
 using System.Linq;
+using advent.Input;
 
 namespace advent.Answers._2015
 {
-    public class _14 : IAnswer
+    public class _14 : IPuzzleAnswer
     {
         private readonly IEnumerable<Reindeer> _reindeer;
 
-        public _14(Input input)
-        {
-            _reindeer = ParseReindeer(input);
-        }
+        public _14(IPuzzleInput input) => _reindeer = ParseReindeer(input);
 
         public string Part1()
         {
@@ -61,7 +59,7 @@ namespace advent.Answers._2015
             }
         }
 
-        private IList<Reindeer> ParseReindeer(Input input)
+        private IList<Reindeer> ParseReindeer(IPuzzleInput input)
         {
             var list = new List<Reindeer>();
 

@@ -1,14 +1,15 @@
 using System;
 using System.Collections.Generic;
+using advent.Input;
 
 namespace advent.Answers._2015
 {
-    public class _07 : IAnswer
+    public class _07 : IPuzzleAnswer
     {
         private readonly IDictionary<string, ushort?> _wires;
         private readonly IDictionary<string, Instruction> _instructions;
 
-        public _07(Input input)
+        public _07(IPuzzleInput input)
         {
             _wires = new Dictionary<string, ushort?>();
             _instructions = ParseInstructions(input);
@@ -95,7 +96,7 @@ namespace advent.Answers._2015
             string RightOperand
         );
 
-        private static IDictionary<string, Instruction> ParseInstructions(Input input)
+        private static IDictionary<string, Instruction> ParseInstructions(IPuzzleInput input)
         {
             var result = new Dictionary<string, Instruction>();
 

@@ -1,14 +1,15 @@
 using System;
 using System.Collections.Generic;
+using advent.Input;
 
 namespace advent.Answers._2015
 {
-    public class _19 : IAnswer
+    public class _19 : IPuzzleAnswer
     {
         private readonly IList<KeyValuePair<string, string>> _replacements;
         private readonly string _medicine;
 
-        public _19(Input input)
+        public _19(IPuzzleInput input)
         {
             var (replacements, medicine) = ParseInput(input);
             _replacements = replacements;
@@ -80,7 +81,7 @@ namespace advent.Answers._2015
             return steps;
         }
 
-        private (IList<KeyValuePair<string, string>> Replacements, string Medicine) ParseInput(Input input)
+        private (IList<KeyValuePair<string, string>> Replacements, string Medicine) ParseInput(IPuzzleInput input)
         {
             List<KeyValuePair<string, string>> replacements = new();
             var medicine = string.Empty;
