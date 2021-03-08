@@ -26,11 +26,13 @@ namespace advent.Answers._2016
         private long GetDecompressedLength(ReadOnlySpan<char> input, bool allowRecursion = false)
         {
             long length = input.Length;
+            var i = 0;
 
-            for (var i = 0; i < input.Length; i++)
+            while (i < input.Length)
             {
                 if (input[i] != '(')
                 {
+                    i++;
                     continue;
                 }
 
@@ -43,7 +45,7 @@ namespace advent.Answers._2016
                     : numChars;
 
                 length += dataLength * numRepeats - numChars - marker.Length;
-                i += marker.Length + numChars - 1;
+                i += marker.Length + numChars;
             }
 
             return length;
