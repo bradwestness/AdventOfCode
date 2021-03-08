@@ -1,6 +1,4 @@
 using System;
-using System.Text;
-using System.Text.RegularExpressions;
 using advent.Input;
 
 namespace advent.Answers._2016
